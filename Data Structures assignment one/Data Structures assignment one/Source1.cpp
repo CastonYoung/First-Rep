@@ -5,24 +5,34 @@ using namespace std;
 template<typename T>
 class Array
 {public:
-	 Array();
-	 Array(int length, int start_index = 0);
-	 Array(const Array& copy);
+	 Array();											//Primary Const
+	 Array(int length, int start_index = 0);			//Seeded array Const
+	 Array(const Array& copy);							//Copy Const
 	~Array();
-	 Array&	operator= (const Array& rhs);
-	 T&		operator[](int index);
-	 int GetStartIndex();
-	void SetStartIndex(int start_index);
-	 int GetLength();
-	void SetLength(int length);
+	 Array&	operator= (const Array& rhs);				//merge two arrays.
+	 T&		operator[](int index);						//Return value from array
+	 int GetStartIndex();								//access start index
+	void SetStartIndex(int start_index);				//Sets start index
+	 int GetLength();									//access length
+	void SetLength(int length);							//Sets the length
 private:
 	T	*m_array;
-	int  m_length, m_start_index;
+	int  m_length/*length of array*/, m_start_index/*Offset of subscript operator*/;
 };
 
 class Exception: public exception										//This is all I needed.
 {	virtual const char* what() const throw()							//I didn't know what to do
 		{ return "Error Out of Bounds.\n"; }							//with all that other junk.
+	/*Exception();
+	Exception(char* msg);
+	Exception(const Exception& copy);
+   ~Exception();
+	Exception&	operator =(const Exception& rhs);
+	const char* getMessage();
+	void		setMessage(char* msg);
+	ostream& operator <<(ostream& stream);
+private:
+	char* m_msg;*/
 } oOb;
 
 
@@ -77,6 +87,32 @@ template<typename T>
  int Array<T>::GetLength	(){ return m_length		; }					//access length
 
 
+ /*Exception::Exception(){}
+
+Exception::Exception(char* msg) : m_msg(msg){}
+
+Exception::Exception(const Exception& copy)/////////////////
+{	m_msg = new char [strlen(copy.m_msg)+1];
+	strcpy_s(m_msg, strlen(copy.m_msg)+1, copy.m_msg);
+}
+
+Exception::~Exception()	{delete [] m_msg;}
+
+Exception& Exception::operator =(const Exception& rhs){m_msg = rhs.m_msg;	return *this;}//{	rhs->m_msg = m_msg;	}
+
+ostream& Exception::operator <<(ostream& stream)
+	{ for(int n(0); n < sizeof(*m_msg)/sizeof(char); n++) stream<< m_msg[n] << ' ';  return stream; }
+
+#ifdef FALSE
+ostream& operator<<(ostream& os, const Date& dt)
+{   os << dt.mo << '/' << dt.da << '/' << dt.yr;
+    return os;										}
+#endif
+
+const char* Exception::getMessage(		){return m_msg;}
+void		Exception::setMessage(char* msg){m_msg=msg;}*/
+
+
  void delptr(void * ptr)//attempt  at surpressing heap corruption
 {	if (ptr != 0 )
 	{	delete [] ptr;
@@ -87,7 +123,7 @@ template<typename T>
 void Display()//Display menu
 {	cout<< endl
 		<< "0:Display\t1:Array();\t2:Array(len, ind);\t3:Array(copy)\n"
-		<< "0:Set tre\t1:Index\t\t2:Length\t\t3:Set element."
+		<< "0:Set tre\t1:Index\t\t2:Length\t\t3:Set element.\nElse: Quit."
 		<< endl;
 }
 
@@ -147,7 +183,9 @@ int main(){try{
 		}
 	}system("pause");
 	return 0;
-  }catch(exception& e){cout<< e.what();}
+ }catch(exception& e)
+   { cout<< e.what();
+     system("pause"); }
 }
 
 /*1:	What are the considerations you had to include in your operator= function
@@ -171,5 +209,5 @@ int main(){try{
 		How could this be improved? What would the expression become?
 	The number of times my program repeats is entirely user dependent, and since I have a "while(true)"
 	it could be said that it is O(infinity); however, my output of my arrays is defined by m_length,
-	my program is either O(i) or O(m_length) AKA O(n).
+	so taking that into consideration my program should be either O(i) or O(m_length) AKA O(n).
 */

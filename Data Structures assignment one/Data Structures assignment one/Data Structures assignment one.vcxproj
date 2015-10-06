@@ -11,7 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source1.cpp" />
+    <Text Include="Test inputs.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="New_Source.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CF7D4B43-2197-448C-A396-3C5BF8214682}</ProjectGuid>
