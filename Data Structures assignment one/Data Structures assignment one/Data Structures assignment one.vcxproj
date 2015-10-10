@@ -14,7 +14,11 @@
     <Text Include="Test inputs.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="New_Source.cpp" />
+    <ClCompile Include="Source0.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Exception.h" />
+    <ClInclude Include="Array_Template.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CF7D4B43-2197-448C-A396-3C5BF8214682}</ProjectGuid>

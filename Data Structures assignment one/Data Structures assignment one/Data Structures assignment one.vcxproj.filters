@@ -20,8 +20,16 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="New_Source.cpp">
+    <ClCompile Include="Source0.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Array_Template.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exception.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
