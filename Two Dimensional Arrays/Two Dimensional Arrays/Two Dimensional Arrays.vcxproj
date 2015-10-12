@@ -79,9 +79,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Array_Template.h" />
-    <ClInclude Include="Exception.h" />
+    <ClInclude Include="Exceptions.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Board.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,6 +1,13 @@
+#ifndef ARRAY_TEMPLATE
+#define ARRAY_TEMPLATE
 #define ALOT 63	//2^(8-1)/2 - 1 Stands for allotment if I spelled that right and it's a real word.
+#define WALL '|'
+#define FLOR '_'
+#define WIDTH 10
+#define HEIGH 10
 #define FOR(x) for(i=0; i < x; i++)
 #define TP template<typename T>
+#include"Exceptions.h"
 
 TP
 class Row;
@@ -10,31 +17,33 @@ TP
 class Array
 {public:
 	 Array();									//Primary Const
-	 Array(int row = 0, int col = 0);			//Seeded array Const
+	 Array(int row, int col = 0);				//Seeded array Const
 	 Array(const Array& copy);					//Copy Const
 	~Array();
 	 Array&	operator= (const Array& rhs);		//merge two arrays.
 	 Row<T>	operator[](int index);				//Return value from array
+	 T&   getCel(int row, int col);
 	 int  getRow()			{ return m_row; }
 	 int  getCol()			{ return m_col; }
 	 void setRow(int rows)	{ m_row = rows; }
 	 void setCol(int cols)	{ m_col = cols; }
 
 //	 int GetStartIndex();						//access start index
-//	void SetStartIndex(int start_index);		//Sets start index
-//	 int GetLength();							//access length
-//	void SetLength(int length);					//Sets the length
+//	void SetStartIndex(int start_ind);			//Sets start index
 private:
 	T**	  m_array;
 	int m_row, m_col, i;
-	short m_length, m_start_index;
+	short m_start_ind;
 };
 
 TP
 class Row
 {public:
-	Row(Array<int>& array_, int row);
-	T& operator[](int column);
+	Row(Array<T>& array_, int row) : Row_array(array_), Row_row(row){}	//Initialization
+	T& operator[](int column){	return Row_array.getCel(Row_row, column);	}
+private:
+	Array<T>& Row_array;
+	int Row_row;
 };
 
 TP
@@ -43,63 +52,59 @@ Array<T>::Array()//Primary Const
 	m_array[0]	= new T [1];											//set to 2 to allow terminating char
 	m_array[0][0] = NULL;												//Terminate
 
-	m_start_index = 0;													//set start index
-	m_length = 2;														//set length
+	m_start_ind = 0;													//set start index
 }
 
 TP//Seeded array Const
-Array<T>::Array(int row = 0, int col = 0) : m_row(row+1), m_col(col+1)	//initialize
+Array<T>::Array(int row, int col = 0) : m_row(row+1), m_col(col+1)		//initialize
 {	m_array = new T*[m_row];											//make dynamic
 	FOR(m_row) m_array[i] = new T[m_col];
 }
 
 TP//Copy Const
 Array<T>::Array(const Array& copy)
-{	m_row = rhs.m_row;
-	m_col = rhs.m_col;
+{	m_row = copy.m_row;
+	m_col = copy.m_col;
 	m_array = new T*[m_row];
-	FOR(m_row) m_array[i] = new T[m_col]								//make dynamic
-	memcpy(m_array, copy.m_array, m_row*m_col/*m_length*/);				//copy array
+	FOR(m_row)
+	{	m_array[i] = new T[m_col];										//make dynamic
+		memcpy(m_array[i], copy.m_array[i], m_col); 					//copy array
+	}
 
-	m_length = copy.m_length;											//copy length
-	m_start_index = copy.m_start_index;									//copy start index
+	m_start_ind = copy.m_start_ind;										//copy start index
 }
-
 TP
 Array<T>::~Array()	{  }
 
-TP//create merge operator.
+TP
+T& Array<T>::getCel(int row, int col)	{ return m_array[row][col]; }
+
+TP//copy
 Array<T>& Array<T>::operator=(const Array& rhs)
 {	m_row = rhs.m_row;
 	m_col = rhs.m_col;
-	memcpy(m_array, rhs.m_array, m_row*m_col/*m_length*/);				//copy array
+	FOR(m_row) memcpy(m_array[i], rhs.m_array[i], m_col); 				//copy array
 
-	m_length = rhs.m_length;
-	m_start_index = rhs.m_start_index;
+	m_start_ind = rhs.m_start_ind;
 	return *this;
 }
 
 TP//Return value from array
-T& Array<T>::operator[]		(int index)
-{	if(index >= m_start_index && index < m_start_index + m_length)	return m_array[index - m_start_index];
-	else throw new Exception("Error Out of Bounds.\n");
+Row<T> Array<T>::operator[](int index)
+{	if(index >= m_start_ind && index < m_start_ind + m_row)
+	{	Row<T> a_row(*this, index);
+		return a_row;
+	}else throw new Exception("Error Out of Bounds.\n");
 }
 
 /*
 TP
- void Array<T>::SetStartIndex	(int start_index)//Sets start index
-{	if (-ALOT<start_index && start_index<ALOT) m_start_index =	start_index;//Check size and set start_index
+ void Array<T>::SetStartIndex	(int start_ind)//Sets start index
+{	if (-ALOT<start_ind && start_ind<ALOT) m_start_ind =	start_ind;//Check size and set start_ind
 	else throw new Exception( "Error: Start Index too large.\n" );
 }
 
 TP
-void Array<T>::SetLength		(int length		)//Sets the length
-{	if (0<length && length<2*ALOT)	m_length = length;					//Checks bounds	and sets length
-	else throw new Exception("Error: Length too long, or non existant.\n");
-}
-
-TP
- int Array<T>::GetStartIndex(){ return m_start_index; }					//access start index
-TP
- int Array<T>::GetLength	(){ return m_length		; }					//access length
+ int Array<T>::GetStartIndex(){ return m_start_ind; }					//access start index
  */
+#endif
