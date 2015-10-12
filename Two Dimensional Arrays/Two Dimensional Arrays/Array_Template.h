@@ -12,7 +12,7 @@
 TP
 class Row;
 
-/**/
+/*A Two Dimensional Array handler*/
 TP
 class Array
 {public:
@@ -22,41 +22,35 @@ class Array
 	~Array();
 	 Array&	operator= (const Array& rhs);		//merge two arrays.
 	 Row<T>	operator[](int index);				//Return value from array
-	 T&   getCel(int row, int col);
+	 T&   getCel(int row, int col);				//The lab over seer said I wouldn't loose points for this
 	 int  getRow()			{ return m_row; }
 	 int  getCol()			{ return m_col; }
 	 void setRow(int rows)	{ m_row = rows; }
 	 void setCol(int cols)	{ m_col = cols; }
-
-//	 int GetStartIndex();						//access start index
-//	void SetStartIndex(int start_ind);			//Sets start index
 private:
-	T**	  m_array;
+	T**	m_array;								//The Array
 	int m_row, m_col, i;
-	short m_start_ind;
 };
 
-TP
+TP/*A class made to support dual brace operators*/
 class Row
 {public:
 	Row(Array<T>& array_, int row) : Row_array(array_), Row_row(row){}	//Initialization
-	T& operator[](int column){	return Row_array.getCel(Row_row, column);	}
+	T& operator[](int column){	return Row_array.getCel(Row_row, column);	}//secondary brace op.
 private:
 	Array<T>& Row_array;
 	int Row_row;
 };
 
-TP
+TP//default constructor.
 Array<T>::Array()//Primary Const
 {	m_array		= new T*[1];											//make dynamic,
 	m_array[0]	= new T [1];											//set to 2 to allow terminating char
 	m_array[0][0] = NULL;												//Terminate
-
-	m_start_ind = 0;													//set start index
 }
 
 TP//Seeded array Const
-Array<T>::Array(int row, int col = 0) : m_row(row+1), m_col(col+1)		//initialize
+Array<T>::Array(int row, int col = 0) : m_row(row), m_col(col)			//initialize
 {	m_array = new T*[m_row];											//make dynamic
 	FOR(m_row) m_array[i] = new T[m_col];
 }
@@ -70,9 +64,8 @@ Array<T>::Array(const Array& copy)
 	{	m_array[i] = new T[m_col];										//make dynamic
 		memcpy(m_array[i], copy.m_array[i], m_col); 					//copy array
 	}
-
-	m_start_ind = copy.m_start_ind;										//copy start index
 }
+
 TP
 Array<T>::~Array()	{  }
 
@@ -84,27 +77,17 @@ Array<T>& Array<T>::operator=(const Array& rhs)
 {	m_row = rhs.m_row;
 	m_col = rhs.m_col;
 	FOR(m_row) memcpy(m_array[i], rhs.m_array[i], m_col); 				//copy array
-
-	m_start_ind = rhs.m_start_ind;
 	return *this;
 }
 
 TP//Return value from array
 Row<T> Array<T>::operator[](int index)
-{	if(index >= m_start_ind && index < m_start_ind + m_row)
-	{	Row<T> a_row(*this, index);
+{	if(index >= 0 && index <= m_row)
+	{	
+		Row<T> a_row(*this, index);
 		return a_row;
-	}else throw new Exception("Error Out of Bounds.\n");
+	}
+	else throw new Exception("Error Out of Bounds.\n");	
 }
-
-/*
-TP
- void Array<T>::SetStartIndex	(int start_ind)//Sets start index
-{	if (-ALOT<start_ind && start_ind<ALOT) m_start_ind =	start_ind;//Check size and set start_ind
-	else throw new Exception( "Error: Start Index too large.\n" );
-}
-
-TP
- int Array<T>::GetStartIndex(){ return m_start_ind; }					//access start index
- */
+//I'd put more comments in but I lack the time.
 #endif
