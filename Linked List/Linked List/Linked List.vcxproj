@@ -83,6 +83,7 @@
     <ClCompile Include="Other.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Exceptions.h" />
     <ClInclude Include="Linked List.h" />
     <ClInclude Include="Header.h" />
   </ItemGroup>

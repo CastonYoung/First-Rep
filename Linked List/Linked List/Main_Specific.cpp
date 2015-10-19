@@ -1,13 +1,16 @@
-#include <iomanip>//For setting width
+//#include <iomanip>//For setting width
 #include "Header.h"
 #include "Linked List.h"
+#include "Exceptions.h"
 using namespace std;
 /*	Create and edit, a list of air-ports, organized by the city and state which they reside.
-	CST 126 & 211,	Completed 10/13/15	v1.2												*/
+	CST 126 & 211,	Completed 10/13/15	v2:1.0												*/
 
 inline  void Flush(){ cin.ignore(cin.rdbuf()->in_avail()); }
 		void Clear_Screen();/*Geer, M. T. Nov 27, 2011*/
 inline  void Cannot_find(string city){ cout<< "Cannot find \""<<city<<"\"in list.\n"; }
+
+void Print_list(LL<Cell/*, string*/> & Cities);
 
 int main()
 {try{
@@ -21,25 +24,28 @@ int main()
 
 	cout<<"Running AIRPORT MANAGER"<< endl;
 	while (repeat == true){
-		cout<<"1.	Add city.\n"
+
+		cout<<"1.	Append city.\n"
 			<<"2.	Delete city.\n"
-			<<"3.	Add airport to city.\n"
+			<<"3.	Append airport to city.\n"
 			<<"4.	Delete airport.\n"
-			<<"5.	Print list of cities.\n"
+			<<"5.	Print the full list of cities.\n"
 			<<"6.	Quit."			<< endl;
+
+		if( 0 < Cities.Get_size() && Cities.Get_size()< MSIZE ) Print_list(Cities);
 
 		cin >> opt;
 		switch(opt){
 		case 1://--------------------------Adds an aditional city.
 			cout<< "Enter City(Name ST number code1 code2 ...)\n";
 			cin >> input.name >> input.state >> input.N_ports;
-			Cities.Add( input );
+			Cities.Append( input );
 			break;
 		case 2://------------------------Deletes a city.
 			cout<< "\nEnter the name of the city: ";
 			cin >> city;
 			noed = Cities.Find(city);
-			if(noed!=0) Cities.Deleet(noed);
+			if(noed!=0) Cities.Extract(noed);
 			else{ Cannot_find(city); continue; }
 			break;
 		case 3://---------------------------------Adds an airport to an existing city.
@@ -62,34 +68,34 @@ int main()
 				cin >> city;//Yes I realize it is called city, but I'm using it for a specific airport.
 				if(coed->Delete_Airport(city)) { Cannot_find(city); continue; }//if (function fails to execute) /*see Delete_Airport*/
 			}break;
-		//case 5: Cities.printList(); break;//	<-Print the list of cities.
-		default: repeat = false;//				<-Exit loop (End program).
+
+		case 5:
+			Print_list(Cities);
+			system("pause");
+			break;	//Print the list of cities.
+		
+		default: repeat = false;			//Exit loop (End program).
+
 		}Clear_Screen();
 	}return 0;
-	}catch(...)
-		{cout<< "exe"; }
-}
-#ifdef NOT
-template<typename T/*, typename find_*/>
-void LL::printList(){//---------------------Prints the list of airports-------
-	node<sub>* current_node = head;
-		
-	if (head == 0){ cout << "List Empty!" << endl; return;  }//If the list is empty.
-	cout<< std::fixed << setiosflags(ios::left);
-	cout<< setw(12) << "  City" << "St." << setw(3) << "# " << "Codes"<< endl;//Table header
-	do{	current_node->display();			//\ 
-		current_node = current_node->m_next;//|}Calls Cell.Display once for each city 
-	} while( current_node != head );		///
-	system("pause");
-}
+}catch(Exception exe){ cout<< exe <<endl; } }
 
-template<typename T>
-void Cell::display(){//-----------------Displays one city's airports------
-	cout<< setw(12) << cell_ID.name << setw(3) << cell_ID.state << setw(3) << cell_ID.N_ports << ": ";
+
+void Print_list(LL<Cell/*, string*/> & Cities)
+{try{	
+	cout<< /*std::fixed << setiosflags(ios::left) <<*/ endl;
+	cout<< /*setw(12) <<*/ "  City" << "St." /*<< setw(3)*/ << "# " << "Codes"<< endl;//Table header
+	Cities.Display_all();
+	cout<<endl;
+}catch(Exception exe){ cout<< exe <<endl; } }
+
+
+void Cell::Display(){//-----------------Displays one city's airports
+	cout<< /*setw(12) <<*/ cell_ID.name /*<< setw(3)*/ << cell_ID.state /*<< setw(3)*/ << cell_ID.N_ports << ": ";
 	for(int N=0; N < cell_ID.N_ports; N++) cout<< airport[N] << ' ';
 	cout << endl;
 }
-#endif
+
 /*					//Copy and paste input list.
 1 Atlanta GA 1 ATL
 1 Boston MA 1 BOS

@@ -5,13 +5,16 @@
 using namespace std;
 
 #define CELL_ID
+#define DISPLAY_METHOD
+
+#define MSIZE 17 //Max size of auto display.
 
 struct sub
 {	string name;
 	string state;
 	int N_ports;	};
-bool operator==(sub d1, sub d2)		{ if(d1.name == d2.name)return true; }
-bool operator==(sub d1, string s2)	{ if(d1.name == s2)		return true; }
+bool operator==(sub d1, sub d2)		{ return (d1.name == d2.name); }
+bool operator==(sub d1, string s2)	{ return (d1.name == s2)	 ; }
 
 class Cell
 {public:
@@ -51,14 +54,19 @@ class Cell
 		} else { return true;	/*delete [] new_code;*/ //}//<J
 		int N;
 		for(N=0; N < cell_ID.N_ports; N++)	if (cOd==airport[N]) break;	//	If the bad airport is found stop this loop 
-		if(N < cell_ID.N_ports){											//	,and
+		if(N < cell_ID.N_ports){										//	,and
 			while(++N < cell_ID.N_ports) airport[N-1] = airport[N];		//	Start this loop, which shifts the data.
-			--cell_ID.N_ports;//					<-Negate # of airports
-		} else return true;//						<-Return an error bit if cOd was not found.
+			--cell_ID.N_ports;
+		} else return true;							//Return an error bit if cOd was not found.
 		return false;
 	}
 
-	//void display();
+	void Display();
 
-	~Cell(){ delete [] airport;}
-};
+	/*~Cell()
+	{	if (airport)  {
+			delete [] airport;
+			airport = 0;
+	} /*deceptive*/ //}
+	
+};//But looks nice
