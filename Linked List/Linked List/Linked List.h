@@ -1,5 +1,7 @@
 #include"Exceptions.h"
 #define STRING string//find_
+#define IT Iterator<T>
+#define CAST(x) reinterpret_cast< x > 
 using namespace std;
 
 template<typename T/*, typename find_*/>
@@ -8,6 +10,8 @@ template<typename T/*, typename find_*/>
 template<typename T>
 		class node;
 
+template<typename T>
+		class Iterator;
 
 template<typename T>
 class node
@@ -31,12 +35,12 @@ class LL
 			LNI ="Error: list not initialized.";	}//-----Constructor
 
 
-	int Get_size()		  { return N_items;}
-	const node<T>& First(){ return m_head; }
-	const node<T>& Last (){ return m_tail; }
-	bool isEmpty()	{ return (N_items == 0);	}
-	Iterator Begin(){ return Iterator(m_head);	}
-	Iterator   End(){ return Iterator(m_tail);	}
+	int Get_size()		  { return N_items;			}
+	const node<T>& First(){ return m_head;			}
+	const node<T>& Last (){ return m_tail;			}
+	bool isEmpty()		  { return (N_items == 0);	}
+	Iterator<T> Begin()	  { return Iterator(m_head);}
+	Iterator<T>   End()	  { return Iterator(m_tail);}
 
 	
 #ifdef DISPLAY_METHOD
@@ -76,12 +80,8 @@ class LL
 #ifdef CELL_ID
 	node<T>* Find(STRING tag)//--------------------Returns a specific node
 	{if(isEmpty()){
-		int checks(0);
-		node<T>* nptr = m_head;						//create a pointer to continually check against
-		do{
-			if(nptr->m_data->cell_ID == tag)return nptr;	//if found
-			nptr = nptr->m_next;							//if not yet found
-		}while(nptr != m_head);							   //if all checked
+		for(Iterator<T> i = (Begin()); i != End(); i++;)
+		{	if ( (*i).m_data->cell_ID == tag) return i.Get();	}
 		return 0;									//if never found
 	}else throw LNI;}							//if there is no list //return 0;}
 
@@ -90,12 +90,8 @@ class LL
 
 	node<T>* Find(int index)//--------------------Returns a specific node
 	{if(isEmpty()){
-		int check(0);
-		node<T>* nptr = m_head;						//create a pointer to continually check against
-		do{
-			if (check++ == index) return nptr;			//if found
-			nptr = nptr->m_next;						//if not yet found
-		}while(nptr != m_head)						   //if all checked
+		for(int j=0; Iterator<T> i=Begin(); i != End(); i++; j++)
+		{	if(j == index) return i.Get();	}
 		return 0;									//if never found
 	}else throw LNI;}							//if there is no list //return 0;}
 
@@ -159,11 +155,13 @@ private:
 template<typename T>
 class Iterator
 {public:
-				 Iterator ()
+				 Iterator ();
 				 Iterator (Iterator*p) : m_node(p->m_node)//{m_node = p->m_node}
 				 Iterator (node<T>* p) : m_node(p)
 	Iterator&	operator= (Iterator other)	{ m_node = other.m_node;}
+	Iterator&	operator= (node<T>* other)	{ m_node = other	   ;}
 	node<T> 	operator* ()				{ return *m_node; 		}
+	node<T>*	Get()						{ return  m_node;		}
 
 	Iterator	operator++()
 				{	m_node = m_node->m_next;	return m_node;	}
@@ -178,10 +176,16 @@ class Iterator
 				{	Iterator temp(m_node);	--m_node;	return m_node;	}
 	
 	Iterator	operator==(Iterator other){ return (m_node == other.m_node); }
+//	Iterator	operator==(node<T>* other){ return (m_node == other)	   ; }
+
+	Iterator	operator!=(Iterator other){ return (m_node != other.m_node); }
+//	Iterator	operator!=(node<T>* other){ return (m_node != other		  ); }
+
 				~Iterator (){}
+
 private:
 	node<T>* m_node;
-}
+};
 
 #ifdef NOT
 
