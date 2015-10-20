@@ -1,20 +1,20 @@
-﻿Build started 10/19/2015 12:05:33 AM.
+﻿Build started 10/19/2015 10:29:09 PM.
      1>Project "C:\Users\castondty\Documents\Data Structures\First-Rep\Linked List\Linked List\Linked List.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Main_Specific.cpp
          Main_Specific.cpp
-     1>c:\users\castondty\documents\data structures\first-rep\linked list\linked list\linked list.h(84): error C2451: conditional expression of type 'Iterator<T>' is illegal
+     1>c:\users\castondty\documents\data structures\first-rep\linked list\linked list\linked list.h(190): error C2955: 'node' : use of class template requires template argument list
+                 c:\users\castondty\documents\data structures\first-rep\linked list\linked list\linked list.h(18) : see declaration of 'node'
+                 c:\users\castondty\documents\data structures\first-rep\linked list\linked list\linked list.h(83) : see reference to class template instantiation 'Iterator<T>' being compiled
                  with
                  [
                      T=Cell
                  ]
-                 No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-                 c:\users\castondty\documents\data structures\first-rep\linked list\linked list\linked list.h(82) : while compiling class template member function 'node<Cell> *LL<Cell>::Find(std::string)'
+                 c:\users\castondty\documents\data structures\first-rep\linked list\linked list\linked list.h(83) : while compiling class template member function 'node<Cell> *LL<Cell>::Find(std::string)'
                  c:\users\castondty\documents\data structures\first-rep\linked list\linked list\main_specific.cpp(48) : see reference to function template instantiation 'node<Cell> *LL<Cell>::Find(std::string)' being compiled
                  c:\users\castondty\documents\data structures\first-rep\linked list\linked list\main_specific.cpp(24) : see reference to class template instantiation 'LL<Cell>' being compiled
-     1>c:\users\castondty\documents\data structures\first-rep\linked list\linked list\linked list.h(84): error C2059: syntax error : ';'
      1>Done Building Project "C:\Users\castondty\Documents\Data Structures\First-Rep\Linked List\Linked List\Linked List.vcxproj" (Build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:00.42
+Time Elapsed 00:00:00.40
