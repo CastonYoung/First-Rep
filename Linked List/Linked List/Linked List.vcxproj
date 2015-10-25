@@ -78,6 +78,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Clear_Screen.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
