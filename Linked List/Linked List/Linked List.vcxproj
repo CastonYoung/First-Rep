@@ -79,13 +79,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Clear_Screen.cpp" />
-    <ClCompile Include="Main_Specific.cpp" />
-    <ClCompile Include="Other.cpp" />
+    <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exceptions.h" />
-    <ClInclude Include="Linked List.h" />
+    <ClInclude Include="Iterator.h" />
     <ClInclude Include="Header.h" />
+    <ClInclude Include="Linked_List.h" />
+    <ClInclude Include="Node.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,13 +1,15 @@
+#ifndef HEADER
+#define HEADER
+
 #include <iostream>
 #include <string>
 #include <math.h>
-//#include "Linked List.h"
 using namespace std;
 
 #define CELL_ID
 #define DISPLAY_METHOD
 
-#define MSIZE 17 //Max size of auto display.
+#define MSIZE 15 //Max size of auto display.
 
 struct sub
 {	string name;
@@ -70,3 +72,5 @@ class Cell
 	} /*deceptive*/ //}
 	
 };//But looks nice
+
+#endif
