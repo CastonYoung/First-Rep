@@ -11,17 +11,21 @@ using namespace std;
 
 #define MSIZE 15 //Max size of auto display.
 
-struct sub
+struct sub		//Used to package multiple parameters into one.
 {	string name;
 	string state;
 	int N_ports;	};
-bool operator==(sub d1, sub d2)		{ return (d1.name == d2.name); }
-bool operator==(sub d1, string s2)	{ return (d1.name == s2)	 ; }
+//bool operator==(sub &d1, sub &d2)		{ return (d1.name == d2.name); }	Will not link here where it should
+//bool operator==(sub &d1, string &s2)	{ return (d1.name == s2)	 ; }	Will not link here where it should
 
-class Cell
-{public:
-	Cell();
-	Cell(sub cell);
+
+
+/*The data contained within the linked list.
+  In this case a list of Airports			*/
+class cCell
+{public://class functions, are self explanatory
+	cCell();
+	cCell(sub cell);
 
 	sub GetID()			{ return cell_ID; }
 	string* Get_port()	{ return airport; }
@@ -31,7 +35,7 @@ class Cell
 	bool Delete_Airport (string cOd);
 	void Display();
 
-	/*~Cell()
+	/*~cCell()
 	{	if (airport)  {
 			delete [] airport;
 			airport = 0;
