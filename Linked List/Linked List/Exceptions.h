@@ -4,7 +4,42 @@
 #include<iostream>
 using namespace std;
 
-/*A class to be thrown as an exception*/
+/************************************************************************
+* Class: Exception
+*
+* Constructors:	
+*	Exception()
+*		Default Constructor, initializes <m_msg>.
+*
+*	Exception(char* msg)
+*		Creates an exception by message being passed.
+*
+*	Exception(const Exception& copy)
+*		Copy Constructor, a required but un-used function.
+*
+* Mutators:
+*	Exception& operator =(const Exception& rhs)
+*		Assignment over load, does a deep copy
+*
+*	Exception& operator =(char* rhs)
+*		Assignment over load, does a deep copy
+*
+*	void setMessage(char* msg)
+*		Setter for message (sets message)
+*
+* Methods:
+*   ~Exception()
+*		Destructor, takes and returns nothing
+*
+*	const char* getMessage(		)
+*		Getter for message (returns message)
+*
+*	friend ostream& operator<<(ostream& stream, const Exception& except);
+*		
+*
+*Private:
+*	char* m_msg		The (error) message.
+*************************************************************************/
 class Exception
 {public:
 

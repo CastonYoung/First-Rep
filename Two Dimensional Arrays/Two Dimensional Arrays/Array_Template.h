@@ -3,9 +3,10 @@
 #define ALOT 63	//2^(8-1)/2 - 1 Stands for allotment if I spelled that right and it's a real word.
 #define WALL '|'
 #define FLOR '_'
-#define WIDTH 10
-#define HEIGH 10
-#define FOR(x) for(i=0; i < x; i++)
+#define WIDTH 3
+#define HEIGH 5
+#define FOR(x)    for(i=0; i < x; i++)
+#define FOR(x, y) for(i=0; i < x; i++)for(j=0; i < x; i++)
 #define TP template<typename T>
 #include"Exceptions.h"
 
@@ -28,11 +29,14 @@ class cArray
 	 T&   getCel(int row, int col);				//return address of a var from the array
 	 int  getRow()			{ return m_row; }
 	 int  getCol()			{ return m_col; }
-	 void setRow(int rows)	{ m_row = rows; }
-	 void setCol(int cols)	{ m_col = cols; }
+	 void setRow(int rows);//	{ m_row = rows; }
+	 void setCol(int cols);//	{ m_col = cols; }
+	 void setDim(int rows, int cols);
 private:
-	T**	m_array;								//The Array
-	int m_row, m_col, i;	//the length of a row, the length of a column, and an index.
+	T**	m_array;			//The Array
+	T** m_array2;
+	const T DEFAULT = ' ';
+	int m_row, m_col, i, j;	//the length of a row, the length of a column, and an index.
 };
 
 TP/*A class made to support dual brace operators, it is only used once by cArray*/
@@ -51,7 +55,7 @@ Return	: Nothing*/
 cArray<T>::cArray()//Primary Const
 {	m_array		= new T*[1];											//make dynamic,
 	m_array[0]	= new T [1];											//set to 2 to allow terminating char
-	m_array[0][0] = NULL;												//Terminate
+	m_array[0][0] = DEFAULT;											//Terminate
 }
 
 TP/*"seeded" (not default or copy) constructor
@@ -61,7 +65,10 @@ Enter	: row, and possibly column length.
 Return	: Nothing*/
 cArray<T>::cArray(int row, int col = 0) : m_row(row), m_col(col)		//initialization
 {	m_array = new T*[m_row];											//make dynamic
-	FOR(m_row) m_array[i] = new T[m_col];								//copy data
+	FOR(m_row)
+	{	m_array[i] = new T[m_col];										//copy data
+		FOR(m_col) m_array[i][j] = DEFAULT;
+	}
 }
 
 TP/*A copy constructor (creates a deep copy of another cArray)
@@ -106,5 +113,43 @@ cRow<T> cArray<T>::operator[](int index)
 	{	cRow<T> a_row(*this, index);
 		return a_row;
 	}else throw new Exception("Error Out of Bounds.\n");	
+}
+
+TP
+void cArray<T>::setRow(int rows)
+{	m_array2 = new T*[rows];			
+	FOR(rows)
+	{	m_array2[i] = new T[m_col];
+		FOR(m_col) m_array2[i][j] = DEFAULT;	}
+
+	 if(m_row < rows)FOR(m_row) memcpy(m_array2[i], m_array[i], m_col);
+else if(rows < m_row)FOR(rows ) memcpy(m_array2[i], m_array[i], m_col);
+	m_row = rows;
+}
+
+TP
+void cArray<T>::setCol(int cols)
+{	m_array2 = new T*[m_row];			
+	FOR(m_row)
+	{	m_array2[i] = new T[cols];
+		FOR(cols) m_array2[i][j] = DEFAULT;	}
+
+	 if(m_col < cols)FOR(m_row) memcpy(m_array2[i], m_array[i], m_col);
+else if(cols < m_col)FOR(m_row) memcpy(m_array2[i], m_array[i],  cols);
+	m_col = cols; 
+}
+
+TP
+void cArray<T>::setDim(int rows, int cols)
+{	m_array2 = new T*[rows];			
+	FOR(rows)
+	{	m_array2[i] = new T[cols];
+		FOR(cols) m_array2[i][j] = DEFAULT;	}
+
+	 if(m_row < rows && m_col < cols)FOR(m_row) memcpy(m_array2[i], m_array[i], m_col);
+else if(m_row < rows && cols < m_col)FOR(m_row) memcpy(m_array2[i], m_array[i],  cols);
+else if(rows < m_row && m_col < cols)FOR(rows ) memcpy(m_array2[i], m_array[i], m_col);
+else if(rows < m_row && cols < m_col)FOR(rows ) memcpy(m_array2[i], m_array[i],  cols);
+	m_row = rows;	m_col = cols; 
 }
 #endif

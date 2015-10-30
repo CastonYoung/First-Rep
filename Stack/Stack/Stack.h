@@ -3,6 +3,29 @@
 
 #include "stdafx.h"
 
+/************************************************************************
+* Class: cStack
+*
+* Constructors:	
+*		cStack(unsigned size = MSIZE)	Default Constructor, inializes size.
+*		cStack(cStack* prime)			Copy-Const, takes another stack, and creates a deep copy.
+*
+* Mutators:
+*	cStack<T>& operator=(const cStack<T>& rhs)	Assignment overload, does a deep copy.
+*
+* Methods:
+*		   ~cStack()	Destructor, no specified functionality.
+*	void	Push(T para)Prepends (para) to {stack}.
+*	T		Pull()		"Pop" removes, and returns an item from <stack>.
+*	T		Peek()		returns a copy of an item from <stack>.
+*	int		Size()		returns the current number of ints on the stack.
+*	bool	Is_empty()	returns true if <stack> is empty.
+*	bool	Is_full()	returns true if <stack> if full.
+*
+*Private:
+*	cLL<T> stack		The linked list, to be limited to a stack.
+*	unsigned m_length	The limit of how large the stack can be.
+*************************************************************************/
 template<typename T>
 class cStack
 {public:

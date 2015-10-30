@@ -8,6 +8,56 @@
 #define STRING string//find_
 using namespace std;
 
+/************************************************************************
+* Class: cLL ("Linked List")
+*
+* Constructors:	
+*	cLL()
+*		Default Constructor, initializes all member variables to 0,
+*		except for LNI which becomes a string.
+*
+*	cLL(cLL* other)
+*		required, but un-used function
+*
+* Mutators:
+*	cLL<T>& operator=(const cLL<T>& rhs)	Performs a deep copy.
+*
+* Methods:
+*	int Get_size()		Getter N_items
+*	cNode<T>& First()	Getter m_head
+*	cNode<T>& Last ()	Getter m_tail
+*	bool Is_empty  ()	returns binary reply
+*	Iterator<T> Begin()	Returns a new iterator for the m_head node.
+*	Iterator<T>   End()	Returns a new iterator for the m_tail node.
+*
+*#ifdef DISPLAY_METHOD
+*	void Display_all()	Calls cCell.Display once for each city.
+*#endif
+*
+*	void Append  (T data)	Adds a new T to the back (tail end)
+*	void Preppend(T data)	Adds a new T to the front(head end)
+*
+*#ifdef CELL_ID
+*	cNode<T>* Find(STRING tag)	<Returns a specific node
+*	T* operator[](STRING index)	</
+*#endif
+*
+*	cNode<T>* Find(int index)	<Returns a specific node
+*	T* operator[](int index)	</
+*
+*	void InsertAfter (T data, T* dptr)	insert <data> after <dptr>.
+*	void InsertBefore(T data, T* dptr)	insert <data> before<dptr>.
+*
+*	cNode<T>* Extract(cNode<T>* nptr, bool del = false)	Removes a node, and returns it.
+*
+*	void Purge()	Deletes all
+*
+*Private:
+*	int		  N_items	The nummber of items in the list.
+*	cNode<T>* m_head	The head node.
+*	cNode<T>* m_tail	The tail node.
+*	Exception LNI		("List Not Initialized") an error message.
+*************************************************************************/
 
 template<typename T/*, typename find_*/>
 class cLL
