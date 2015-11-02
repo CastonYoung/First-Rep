@@ -43,53 +43,53 @@ using namespace std;
 class Exception
 {public:
 
-	/*Because I apparently need to have a default constructor
+	/*
+	Purpose	: Because I apparently need to have a default constructor
 	Enter	: Nothing
-	Return	: Nothing*/
-	Exception(){ m_msg = "Error, Undefined exception thrown."; }
+	Return	: Nothing
+	*/Exception(){ m_msg = "Error, Undefined exception thrown."; }
 	
-
-	/*Creats an exception by message being passed.
+	/*
+	Purpose	: Creats an exception by message being passed.
 	Enter	: string/character array
-	Return	: Nothing*/
-	Exception(char* msg) : m_msg(msg){} 
-
+	Return	: Nothing
+	*/Exception(char* msg) : m_msg(msg){} 
 	
-	/*A copy constructor (does a deep copy)
+	/*
+	Purpose	: A copy constructor (does a deep copy)
 	Enter	: an Exception
-	Return	: Nothing*/
-	Exception(const Exception& copy)
+	Return	: Nothing
+	*/Exception(const Exception& copy)
 	{	m_msg = new char [strlen(copy.m_msg)+1];
 		strcpy_s(m_msg, strlen(copy.m_msg)+1, copy.m_msg);
 	}
 
-
 	/*Destructor, takes and returns nothing*/
-   ~Exception()	{/*delete [] m_msg;*/ /*delptr(m_array);*/}
-	
+   ~Exception()	{/*delete [] m_msg;*/ /*delptr(m_array);*/}	
 
-	/*Assignment operator, does a deep copy
+	/*
+	Purpose	: Assignment operator, does a deep copy
 	Enter	: another Exception
-	Return	: *this*/
-	Exception& operator =(const Exception& rhs)	{ m_msg = rhs.m_msg;return *this; }
+	Return	: *this
+	*/Exception& operator =(const Exception& rhs)	{ m_msg = rhs.m_msg;return *this; }
 	
-
-	/*Assignment operator
+	/*
+	Purpose	: Assignment operator
 	Enter	: a string;
-	Return	: *this*/
-	Exception& operator =(char* rhs)			{ m_msg = rhs;		return *this; }
+	Return	: *this
+	*/Exception& operator =(char* rhs)			{ m_msg = rhs;		return *this; }
 
-	/*Setter for message (sets message)
+	/*
+	Purpose	: Setter for message (sets message)
 	Enter	: string/character array
-	Return	: Nothing*/
-	void setMessage(char* msg){m_msg=msg;}
+	Return	: Nothing
+	*/void setMessage(char* msg){m_msg=msg;}
 
-
-	/*Getter for message (returns message)
+	/*
+	Purpose	: Getter for message (returns message)
 	Enter	: Nothing
-	Return	: m_msg*/
-	const char* getMessage(		){return m_msg;}
-
+	Return	: m_msg
+	*/const char* getMessage(		){return m_msg;}
 
 	friend ostream& operator<<(ostream& stream, const Exception& except);
 
@@ -100,7 +100,7 @@ private:
 
 
 /*ostream operator overload,
-  overloads the << operator to output msg, by passing in the Exception itself
+Purpose	: overloads the << operator to output msg, by passing in the Exception itself
 Enter	: an Exception, presumably one that has just been caught.
 Return	: stream (basically Nothing)
 AlsoExit: The msg is outputed.*/
@@ -110,7 +110,7 @@ ostream& operator<<(ostream& stream, Exception& except){//Out put message.
 	for(int n(0); n < message_length; n++) stream<< msg << ' ';  return stream;
 };
 
-#ifdef FALSE
+#ifdef FALSE //Other attempts
 ostream& Exception::operator<<(ostream& stream, Exception& except)
 	{ for(int n(0); n < sizeof(*m_msg)/sizeof(char); n++) stream<< m_msg[n] << ' ';  return stream; }
 

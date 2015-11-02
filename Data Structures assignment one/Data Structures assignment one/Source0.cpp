@@ -1,11 +1,15 @@
 #include<iostream>
 #include<exception>
-#include"Exception.h"
+#include"Exceptions.h"
 #include"Array_Template.h"
 using namespace std;
 
 
-/*options*/
+/*
+	Purpose	: Displays a list of menu options.
+	Enter	: three (all) arrays
+	Exit	: Displays a list of menu options.
+*/
 void Disp_menu()
 {	cout<< endl
 		<< "0:Display\t1:Array();\t2:Array(len, ind);\t3:Array(copy)\n"
@@ -13,7 +17,11 @@ void Disp_menu()
 		<< endl;
 }
 
-/*Out puts all the arrays*/
+/*
+	Purpose	: Out puts all the arrays.
+	Enter	: three (all) arrays
+	Exit	: all three array contents are displayed on screen.
+*/
 void Out_put(Array<char> &one, Array<char> &two, Array<char> &tre)//Out-put arrays
 {	int i;
 	cout<< "one: "<< one.GetStartIndex() <<' ';

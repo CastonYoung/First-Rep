@@ -1,17 +1,40 @@
+/****************************************************************
+* Author:				Caston Young
+* Date Finished:		10/13/15
+* Last Mod. Date:		10/25/15
+* Lab Number:			CST 126 & 211
+* Filename:				Linked List.snl
+* v2.7
+*
+* Overview: To demonstrate linked list capabilities...
+*			Create and edit, a list of air-ports,
+*			organized by the city and state which they reside.
+*
+*    Input: No input files required, all input comes from the
+*			user in the form of airport locations, names, menu 
+*			option numbers, and the number of airports a city has.
+*
+*   Output: All output is to a command prompt produced by console
+*			applications.  As this is a demonstration, not a real
+*			database of airports in america, nothing is saved.
+*			All memory is deallocated/deleted.
+*		
+*		1.	Add city.
+*		2.	Delete city.
+*		3.	Add airport to city.
+*		4.	Delete airport.
+*		5.	Print the full list of cities.
+*		6.	Quit.
+*
+*		Enter the name of the city: 
+*
+*****************************************************************/
+
 #include <iomanip>//For setting width
 #include "Linked_List.h"
 #include "Exceptions.h"
 #include "Header.h"
 
-/*	Airport Manager / Linked List
-	To demonstrate linked list capabilities...
-	Create and edit, a list of air-ports, organized by the city and state which they reside.
-	CST 126 & 211,	Completed 10/13/15,	Last edit 10/25/2015,	v2.7
-	No input files required, all input comes from the user in the form of airport locations
-	and names, as well as menu option numbers, and the number of airports a city has.
-	All output is to a command prompt produced by console applications.
-	As this is a demonstration, not a real database of airports in america, nothing is saved.
-	All memory is deallocated/deleted.*/
 
 using namespace std;
 
@@ -93,14 +116,25 @@ int main()
 	return 0;
 }
 
-//Prints a table head, and calls Cities.Display_all(); therfore printing the whole list. A return is added.
+/**************************************************************
+*    Entry:  enter the list by address.
+*
+*    Exit:  calls Cities.Display_all(),
+*	 and prints the list in the form table with data.
+*
+*	 Purpose:  Prints a table head followed by the whole list.
+*
+***************************************************************/
+
 void Print_list(cLL<cCell/*, string*/> & Cities)
-{try{	
-	cout<< std::fixed << setiosflags(ios::left) << endl;
-	cout<< setw(12) << "  City" << "St." << setw(3) << "# " << "Codes"<< endl;//Table header
-	Cities.Display_all();
-	cout<<endl;
-}catch(Exception exe){ cout<< exe <<endl; } }
+{
+	try{	
+		cout<< std::fixed << setiosflags(ios::left) << endl;
+		cout<< setw(12) << "  City" << "St." << setw(3) << "# " << "Codes"<< endl;//Table header
+		Cities.Display_all();
+		cout<<endl;
+	}catch(Exception exe){ cout<< exe <<endl; }
+}
 
 
 /*					//Copy and paste input list.

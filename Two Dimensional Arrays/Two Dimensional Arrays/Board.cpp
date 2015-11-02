@@ -2,15 +2,33 @@
 #include"Array_Template.h"
 using namespace std;
 
-//Outputs a top/bottom border.
+/*********************************************************************
+*   Entry:  wide, the width of the board/table.
+*
+*    Exit:  The top or bottom border of the board/table is displayed.
+*
+* Purpose:  Display the top and bottom border of the board/table.
+*
+*********************************************************************/
+
 void Display_BotTop(int wide)
 {	cout << WALL;
 	for (int col=0; col < wide; ++col) cout << FLOR;
 	cout << WALL << endl;
 }
 
-//Displays the array, called Display_Board, because it was originally made for a board game.
-void Display_Board(cArray<char> &DB_2D)
+/*********************************************************************
+*   Entry:  The 2D array
+*
+*    Exit:  The 2D array is displayed, surrounded by a border.
+*			Additionally the height and width is displayed,
+*			this is a program specific requirement.
+*
+* Purpose:  Display the 2D array contents within a border.
+*
+*********************************************************************/
+
+void Display_Board(cArray<char> &DB_2D)//Called Display_Board, because it was originally made for a board game.
 {	
 	Display_BotTop(DB_2D.getCol());
 
